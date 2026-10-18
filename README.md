@@ -5,7 +5,7 @@ A working records management system built in **SharePoint** and **Power Automate
 > **All data in this project is fictional.** No real student information is used, in keeping with FERPA.
 
 **Demo video:** [Watch the walkthrough on Loom](LOOM_LINK_HERE)
-**Portfolio site:** [View the live portfolio](https://YOUR-USERNAME.github.io/records-management-tracker/)
+**Portfolio site:** [View the live portfolio](https://github.com/marissam8/records-management-tracker)
 
 ## What it does
 
@@ -93,4 +93,4 @@ These are standard Microsoft 365 business tools, so the system can run inside an
 
 I combine law enforcement records experience, as a sheriff's deputy in detention center booking and on patrol, with cloud systems administration, data platform engineering and PKI training. I built this project to show how records offices can be both careful and technically sound.
 
-[Your Name] · [LinkedIn] · [email]
+Marissa M · [LinkedIn] · [email]
