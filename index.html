@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Records Management Portfolio — [Your Name]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF1F5; --sheet:#FFFFFF; --ink:#18263D; --ink-2:#4A5A73; --rule:#C9D3DF;
+  --file:#2F5D8A; --file-soft:#DCE7F2; --tab:#D5E0EC;
+  --done:#2E7A55; --done-soft:#DDEFE5; --wait:#9A6A10; --wait-soft:#F6EBD3;
+  --late:#B23A3A; --late-soft:#F6DEDE; --focus:#2F5D8A;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121A26; --sheet:#1A2433; --ink:#E4EAF2; --ink-2:#A6B3C6; --rule:#2E3B4F;
+    --file:#7FAEE0; --file-soft:#21344D; --tab:#223146;
+    --done:#6FC79B; --done-soft:#17342A; --wait:#E3B55C; --wait-soft:#3A2F17;
+    --late:#F08A8A; --late-soft:#3E1F23; --focus:#7FAEE0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121A26; --sheet:#1A2433; --ink:#E4EAF2; --ink-2:#A6B3C6; --rule:#2E3B4F;
+  --file:#7FAEE0; --file-soft:#21344D; --tab:#223146;
+  --done:#6FC79B; --done-soft:#17342A; --wait:#E3B55C; --wait-soft:#3A2F17;
+  --late:#F08A8A; --late-soft:#3E1F23; --focus:#7FAEE0;
+  color-scheme: dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.6;font-variant-numeric:tabular-nums}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:var(--file)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:3px}
+img,svg{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.prose{max-width:70ch}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;letter-spacing:-.01em}
+h2{font-size:1.9rem;font-weight:800}
+h3{font-size:1.2rem;font-weight:700;margin-top:1.6em}
+p{margin:0 0 1em}
+
+/* folder-tab navigation */
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:2px solid var(--file)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:10px;scrollbar-width:thin}
+nav.tabs a{flex:0 0 auto;text-decoration:none;color:var(--ink-2);background:var(--tab);padding:8px 16px 7px;border-radius:9px 9px 0 0;font-weight:600;font-size:.88rem;white-space:nowrap}
+nav.tabs a:hover,nav.tabs a.on{background:var(--file);color:var(--sheet)}
+
+/* hero index card */
+header.hero{padding:48px 0 40px}
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:4px;position:relative;max-width:760px;box-shadow:0 1px 0 var(--rule),0 8px 0 -4px var(--sheet),0 8px 0 -3px var(--rule),0 16px 0 -8px var(--sheet),0 16px 0 -7px var(--rule)}
+.card .head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 24px;border-bottom:2px solid var(--late);font-size:.9rem;color:var(--ink-2)}
+.card .lines{padding:22px 24px 26px;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 33px,var(--file-soft) 33px,var(--file-soft) 34px);background-position:0 18px}
+.card h1{font-size:clamp(2rem,5.5vw,3.3rem);font-weight:800;margin:0 0 6px;line-height:1.05}
+.card .role{font-size:1.15rem;color:var(--ink-2);margin:0 0 18px}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;margin:0;font-size:.95rem}
+.card dt{color:var(--ink-2)}
+.card dd{margin:0;font-weight:600}
+.note{margin-top:28px;max-width:760px;font-size:.92rem;color:var(--ink-2);border-left:3px solid var(--file);padding:4px 0 4px 14px}
+
+section{padding:56px 0;border-top:1px solid var(--rule)}
+.lede{color:var(--ink-2);font-size:1.05rem}
+
+/* tables */
+.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{background:var(--file-soft);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td a{font-weight:600}
+.map td:first-child{width:2.5em;color:var(--ink-2)}
+
+/* tracker */
+.tracker{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;margin-top:20px}
+.ttabs{display:flex;gap:4px;padding:10px 12px 0;border-bottom:2px solid var(--file);overflow-x:auto}
+.ttabs button{font:inherit;font-size:.88rem;font-weight:600;border:0;background:var(--tab);color:var(--ink-2);padding:8px 14px;border-radius:8px 8px 0 0;cursor:pointer;white-space:nowrap}
+.ttabs button[aria-selected="true"]{background:var(--file);color:var(--sheet)}
+.pane{padding:18px}
+.pane[hidden]{display:none}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.stat{border:1px solid var(--rule);border-radius:6px;padding:8px 14px;min-width:120px}
+.stat b{display:block;font-size:1.5rem;line-height:1.1}
+.stat span{font-size:.82rem;color:var(--ink-2)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+input,select,textarea{font:inherit;font-size:.92rem;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:7px 9px}
+input[type=search]{flex:1 1 220px}
+button.btn{font:inherit;font-size:.9rem;font-weight:600;border:1px solid var(--file);background:var(--file);color:var(--sheet);border-radius:5px;padding:7px 14px;cursor:pointer}
+button.ghost{background:transparent;color:var(--file)}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;padding:14px;border:1px dashed var(--rule);border-radius:6px;margin-bottom:16px}
+.form label{display:flex;flex-direction:column;font-size:.8rem;color:var(--ink-2);gap:3px}
+.form .actions{display:flex;align-items:end;gap:8px}
+.pill{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.s-Received{background:var(--file-soft);color:var(--file)}
+.s-InProgress{background:var(--wait-soft);color:var(--wait)}
+.s-PendingRelease{background:var(--wait-soft);color:var(--wait)}
+.s-Completed{background:var(--done-soft);color:var(--done)}
+.late{color:var(--late);font-weight:700}
+td select{padding:3px 6px;font-size:.82rem}
+.empty{padding:20px;text-align:center;color:var(--ink-2)}
+.small{font-size:.85rem;color:var(--ink-2)}
+
+/* diagrams */
+.diagrams{display:grid;gap:22px}
+figure{margin:0;background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:18px}
+figcaption{font-weight:700;margin-bottom:6px}
+figure p{font-size:.92rem;color:var(--ink-2)}
+pre.mermaid{overflow-x:auto;background:transparent;margin:0;text-align:center}
+
+/* folders / details */
+details{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;margin-bottom:10px}
+summary{cursor:pointer;padding:12px 16px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:800;color:var(--file)}
+details[open] summary::after{content:"–"}
+details[open] summary{border-bottom:1px solid var(--rule)}
+.dbody{padding:14px 18px 6px}
+.dbody ol,.dbody ul{padding-left:1.3em;margin:0 0 1em}
+.dbody li{margin-bottom:.35em}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;background:var(--file-soft);padding:1px 5px;border-radius:3px}
+.letter{white-space:pre-wrap;background:var(--paper);border-left:3px solid var(--file);padding:12px 14px;font-size:.92rem;margin-bottom:1em}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.chartbox{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:18px}
+footer{padding:36px 0 56px;border-top:1px solid var(--rule);color:var(--ink-2);font-size:.9rem}
+</style>
+</head>
+<body>
+
+<nav class="tabs" aria-label="Portfolio sections">
+  <div class="wrap">
+    <a href="#background">Background</a>
+    <a href="#overview">Overview</a>
+    <a href="#tracker">Tracking system</a>
+    <a href="#workflows">Workflows</a>
+    <a href="#procedures">Procedures</a>
+    <a href="#reports">Reports</a>
+    <a href="#technical">Technical support</a>
+    <a href="#sharepoint">SharePoint build</a>
+    <a href="#service">Public service</a>
+    <a href="#compliance">Compliance &amp; training</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="card">
+      <div class="head"><span>Records portfolio</span><span>File no. RM-2026-001</span></div>
+      <div class="lines">
+        <h1>[Your Name]</h1>
+        <p class="role">Records management, backed by law enforcement records work and cloud systems engineering</p>
+        <dl>
+          <dt>Background</dt><dd>Sheriff’s deputy (detention booking and patrol), cloud systems administration, data platform engineering</dd>
+          <dt>Focus</dt><dd>Student records, transcripts, subpoenas, tracking databases</dd>
+          <dt>Tools</dt><dd>SharePoint, Power Automate, cloud platforms, PKI, logging and monitoring, Excel/Access</dd>
+          <dt>Contact</dt><dd>[email] / [phone] / [LinkedIn]</dd>
+        </dl>
+      </div>
+    </div>
+    <p class="note">Every record, name and request on this page is fictional sample data I created to show how I work. No real student information is used, in keeping with FERPA.</p>
+  </div>
+</header>
+
+<main>
+<section id="background">
+  <div class="wrap">
+    <h2>Background</h2>
+    <p class="lede prose">I bring two kinds of experience this role rarely gets together: handling confidential legal records where accuracy has real consequences, and building and running the technical systems that records depend on.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Experience</th><th>What it involved</th><th>Where it applies here</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Sheriff’s deputy, detention center booking</strong></td><td>Intake records, identity verification, confidential files, and legal documents such as warrants and court orders</td><td>Subpoenas, release verification, records accuracy, working with law firms and agencies</td></tr>
+        <tr><td><strong>Patrol officer, 2 years</strong></td><td>Report writing to legal standards, de-escalation, serving the public under stress, working independently</td><td>Tact with parents, students and the public; clear documentation; minimal supervision</td></tr>
+        <tr><td><strong>Cloud systems administration</strong></td><td>Installing, configuring and troubleshooting systems; monitoring, logs and observability</td><td>Hardware and software installation, network monitoring, system change documentation</td></tr>
+        <tr><td><strong>Data platform engineering</strong></td><td>Designing data structures, moving and validating data between systems, reporting</td><td>Tracking databases, student data retrieval, accurate reports from multiple sources</td></tr>
+        <tr><td><strong>PKI administration training</strong></td><td>Digital certificates, signatures and secure access</td><td>Certified electronic transcripts, secure delivery, access control for sensitive records</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Why this role</h3>
+    <p class="prose">I want my work to serve the community. Every transcript request is someone’s next step, whether that’s college, a job, or a family moving to a new school, and getting it right quickly matters. I want to help the Records Management office be as technically sound as it is careful, using the systems the district already has, while protecting the privacy of every student and family it serves.</p>
+  </div>
+</section>
+
+<section id="overview">
+  <div class="wrap">
+    <h2>Where each duty is shown</h2>
+    <p class="lede prose">This index maps each responsibility of a Records Management position to the work sample on this page that demonstrates it.</p>
+    <div class="scroll">
+      <table class="map">
+        <thead><tr><th>#</th><th>Responsibility</th><th>Evidence</th></tr></thead>
+        <tbody id="dutyMap"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="tracker">
+  <div class="wrap">
+    <h2>Records request tracking system</h2>
+    <p class="lede prose">A working tracker I designed for transcript, subpoena, verification and records-transfer requests, with logs for communications and resource deployment. Try it: add a request, change a status, search or filter. Changes stay in your browser only.</p>
+
+    <div class="tracker">
+      <div class="ttabs" role="tablist">
+        <button role="tab" aria-selected="true" data-pane="p-req">Requests</button>
+        <button role="tab" aria-selected="false" data-pane="p-comm">Communications log</button>
+        <button role="tab" aria-selected="false" data-pane="p-res">Resource deployment</button>
+      </div>
+
+      <div class="pane" id="p-req" role="tabpanel">
+        <div class="stats" id="reqStats"></div>
+        <form class="form" id="reqForm" autocomplete="off">
+          <label>Request type
+            <select name="type" required>
+              <option>Transcript</option><option>Subpoena</option><option>Enrollment verification</option><option>Records transfer</option><option>Diploma replacement</option>
+            </select></label>
+          <label>Requester
+            <input name="requester" required placeholder="e.g., State University Admissions"></label>
+          <label>Requester category
+            <select name="cat"><option>College/university</option><option>Law firm</option><option>Employer/agency</option><option>Parent/guardian</option><option>Former student</option><option>Health department</option><option>School/central office</option></select></label>
+          <label>Student (fictional)
+            <input name="student" required placeholder="Last, First"></label>
+          <label>Release on file?
+            <select name="release"><option>Yes</option><option>No</option><option>Not required</option></select></label>
+          <div class="actions"><button class="btn" type="submit">Add request</button></div>
+        </form>
+        <div class="controls">
+          <input type="search" id="q" placeholder="Search by ID, requester or student" aria-label="Search requests">
+          <select id="fStatus" aria-label="Filter by status"><option value="">All statuses</option><option>Received</option><option>In progress</option><option>Pending release</option><option>Completed</option></select>
+          <select id="fType" aria-label="Filter by type"><option value="">All types</option><option>Transcript</option><option>Subpoena</option><option>Enrollment verification</option><option>Records transfer</option><option>Diploma replacement</option></select>
+          <button class="btn ghost" type="button" id="resetData">Reset sample data</button>
+        </div>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>ID</th><th>Received</th><th>Type</th><th>Requester</th><th>Student</th><th>Release</th><th>Due</th><th>Status</th></tr></thead>
+            <tbody id="reqBody"></tbody>
+          </table>
+        </div>
+        <p class="small" style="margin-top:10px">Due dates are set automatically from the request type (transcripts 5 business days, verifications 3, records transfers 10, subpoenas 10 or the date on the subpoena). Overdue items show in red.</p>
+      </div>
+
+      <div class="pane" id="p-comm" role="tabpanel" hidden>
+        <p class="small">Tracks every contact with central office departments, schools, parents, students and outside agencies so follow-ups never fall through.</p>
+        <div class="scroll"><table>
+          <thead><tr><th>Date</th><th>Party</th><th>Category</th><th>Channel</th><th>Subject</th><th>Linked request</th><th>Follow-up</th></tr></thead>
+          <tbody>
+            <tr><td>Oct 1</td><td>Office of Enrollment</td><td>Central office</td><td>Email</td><td>Withdrawal codes missing for 3 transfers</td><td>RT-0137</td><td>Oct 3 — resolved</td></tr>
+            <tr><td>Oct 2</td><td>Lakeview High, registrar</td><td>School</td><td>Phone</td><td>Grade change not posted before transcript run</td><td>TR-0141</td><td>Oct 6 — confirmed posted</td></tr>
+            <tr><td>Oct 5</td><td>Parent of D. Okafor</td><td>Parent/guardian</td><td>In person</td><td>Explained release form for records copy</td><td>—</td><td>None needed</td></tr>
+            <tr><td>Oct 7</td><td>Hale &amp; Ortiz LLP</td><td>Law firm</td><td>Mail</td><td>Subpoena received; routed to Legal for review</td><td>SB-0144</td><td>Oct 14 — Legal approved</td></tr>
+            <tr><td>Oct 9</td><td>County Health Department</td><td>External agency</td><td>Secure email</td><td>Immunization record request under health exception</td><td>VR-0146</td><td>Oct 10 — sent</td></tr>
+            <tr><td>Oct 12</td><td>Office of Information Technology</td><td>Central office</td><td>Help desk ticket</td><td>Scanner driver failing on records workstation 2</td><td>—</td><td>Oct 13 — closed</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="pane" id="p-res" role="tabpanel" hidden>
+        <p class="small">Tracks where department equipment, licenses and staff time are assigned.</p>
+        <div class="scroll"><table>
+          <thead><tr><th>Asset / resource</th><th>Tag</th><th>Assigned to</th><th>Location</th><th>Deployed</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Document scanner (high-volume)</td><td>RM-SCN-02</td><td>Archive digitization</td><td>Records room B</td><td>Aug 18</td><td><span class="pill s-Completed">In service</span></td></tr>
+            <tr><td>Records workstation</td><td>RM-PC-07</td><td>Transcript desk</td><td>Front counter</td><td>Sep 2</td><td><span class="pill s-Completed">In service</span></td></tr>
+            <tr><td>Laptop (loaner)</td><td>RM-LT-03</td><td>Summer school records audit</td><td>Lakeview High</td><td>Oct 6</td><td><span class="pill s-InProgress">Due back Oct 24</span></td></tr>
+            <tr><td>Signature pad</td><td>RM-SIG-01</td><td>Walk-in release forms</td><td>Front counter</td><td>Sep 2</td><td><span class="pill s-Completed">In service</span></td></tr>
+            <tr><td>Temp staff (20 hrs/wk)</td><td>—</td><td>Back-file indexing project</td><td>Records room B</td><td>Sep 15</td><td><span class="pill s-InProgress">Through Dec 19</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      </div>
+    <figure style="margin-top:22px" id="model">
+        <figcaption>Data model</figcaption>
+        <p>The relational structure behind the tracker, designed so it can be built in Access, SQL Server, or a SharePoint list set.</p>
+        <pre class="mermaid">
+erDiagram
+  STUDENT ||--o{ REQUEST : "is subject of"
+  REQUESTER ||--o{ REQUEST : submits
+  REQUEST ||--o{ COMMUNICATION : "is discussed in"
+  REQUEST ||--o{ DOCUMENT : produces
+  STAFF ||--o{ REQUEST : "is assigned"
+  STUDENT {
+    string student_id PK
+    string last_name
+    string first_name
+    date birth_date
+    string last_school
+    int grad_year
+  }
+  REQUEST {
+    string request_id PK
+    string type
+    date received
+    date due
+    string status
+    bool release_on_file
+    string student_id FK
+    string requester_id FK
+  }
+  REQUESTER {
+    string requester_id PK
+    string name
+    string category
+    string contact
+  }
+  COMMUNICATION {
+    int comm_id PK
+    date comm_date
+    string channel
+    string summary
+  }
+  DOCUMENT {
+    string doc_id PK
+    string doc_type
+    string repository_path
+    date retention_until
+  }
+  STAFF {
+    string staff_id PK
+    string name
+  }
+        </pre>
+        <h3>Data rules</h3>
+        <ul>
+          <li>Request IDs use a type prefix plus a running number (<code>TR</code> transcript, <code>SB</code> subpoena, <code>VR</code> verification, <code>RT</code> records transfer, <code>DP</code> diploma).</li>
+          <li>Status can only move forward: Received, In progress, Pending release, Completed; a reopened item gets a note in the communications log.</li>
+          <li>No transcript or record is released while <code>release_on_file</code> is “No” unless a FERPA exception applies and is recorded.</li>
+        </ul>
+    </figure>
+  </div>
+</section>
+
+<section id="workflows">
+  <div class="wrap">
+    <h2>Workflow diagrams</h2>
+    <p class="lede prose">Process maps I use to train staff and to spot bottlenecks. Each one documents decision points so the work happens the same way every time.</p>
+    <div class="diagrams">
+      <figure>
+        <figcaption>Transcript request</figcaption>
+        <p>From intake (online portal such as Scribbles, walk-in, or mail) to delivery.</p>
+        <pre class="mermaid">
+flowchart LR
+  A[Request received] --> B{Identity and<br/>release verified?}
+  B -- No --> C[Contact requester<br/>for missing items]
+  C --> B
+  B -- Yes --> D[Locate record in SIS<br/>or Central Repository]
+  D --> E{Record complete?}
+  E -- No --> F[Contact school or<br/>archive for missing grades]
+  F --> E
+  E -- Yes --> G[Generate and certify<br/>official transcript]
+  G --> H[Deliver: electronic,<br/>mail, or pickup]
+  H --> I[Log completion<br/>in tracker]
+        </pre>
+      </figure>
+      <figure>
+        <figcaption>Subpoena response</figcaption>
+        <p>Subpoenas need legal review and parent notice before any record is produced.</p>
+        <pre class="mermaid">
+flowchart LR
+  A[Subpoena received] --> B[Log and date-stamp]
+  B --> C[Route to Office of<br/>Legal Counsel]
+  C --> D{Valid and<br/>approved?}
+  D -- No --> E[Legal responds<br/>to issuing party]
+  D -- Yes --> F[Notify parent or<br/>eligible student]
+  F --> G[Compile records from<br/>all data sources]
+  G --> H[Verify completeness<br/>and certify copies]
+  H --> I[Produce records by<br/>the return date]
+  I --> J[File copy and<br/>log disclosure]
+        </pre>
+      </figure>
+      <figure>
+        <figcaption>Records retention and disposition</figcaption>
+        <p>Annual cycle for moving paper records to digital storage and applying the retention schedule.</p>
+        <pre class="mermaid">
+flowchart TD
+  A[Records arrive from<br/>schools at year end] --> B[Inventory and index]
+  B --> C{Permanent record?}
+  C -- Yes --> D[Scan, index in<br/>Central Repository]
+  D --> E[Quality check<br/>image and metadata]
+  E --> F[Store original<br/>per schedule]
+  C -- No --> G[Assign retention date]
+  G --> H{Retention period<br/>met?}
+  H -- No --> I[Hold in storage]
+  H -- Yes --> J[Supervisor approval]
+  J --> K[Secure destruction<br/>with certificate]
+        </pre>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="procedures">
+  <div class="wrap">
+    <h2>Recommended procedures</h2>
+    <p class="lede prose">Written procedures I developed or recommend to keep records findable, accurate and compliant. Open each folder to read it.</p>
+
+    <details open>
+      <summary>Indexing standard for the Central Records Repository and SharePoint</summary>
+      <div class="dbody">
+        <p>Every scanned document gets a predictable file name and matching metadata so it can be found by any of four routes: student, school, document type, or year.</p>
+        <p><strong>File name pattern:</strong> <code>StudentID_LastName_DocType_SchoolCode_YYYY-MM-DD</code><br>
+        Example: <code>2009471_RIVERA_PermRecord_412_2019-06-14.pdf</code></p>
+        <p><strong>SharePoint metadata columns:</strong> Student ID (indexed), Last name, First name, Birth date, Document type (choice), School code (lookup), School year, Retention category (choice), Retention until (calculated), Confidential flag.</p>
+        <p><strong>Document type codes:</strong> PermRecord, Transcript, Withdrawal, Immunization, Diploma, IEP-Archive, Discipline, Correspondence.</p>
+        <p><strong>Why it works:</strong> staff can search by ID when they have it, and fall back to name plus birth date when they don’t; the retention column makes the yearly disposition review a filtered view instead of a manual hunt.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Verifying identity and authorization before release</summary>
+      <div class="dbody">
+        <ol>
+          <li>Confirm the requester’s identity: government ID for walk-ins; matching name, birth date and last school for online requests.</li>
+          <li>Check who has rights to the record: the parent until the student turns 18 or enrolls in college, then the eligible student.</li>
+          <li>Confirm a signed release is on file unless a FERPA exception applies (school transfer, health or safety emergency, valid subpoena after notice).</li>
+          <li>Record the exception or release in the tracker before producing anything.</li>
+          <li>Log every disclosure: who received it, what was sent, when, and why.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Compiling complete subpoena and transcript information</summary>
+      <div class="dbody">
+        <p>A single system rarely holds the whole record, so I check each source in order and note what was found:</p>
+        <ol>
+          <li>Current student information system (enrollment, grades, attendance).</li>
+          <li>Prior or legacy SIS exports for older years.</li>
+          <li>Central Records Repository scans (permanent record cards, withdrawals).</li>
+          <li>SharePoint archives and school-submitted files.</li>
+          <li>Paper back-files in storage, pulled and scanned if needed.</li>
+        </ol>
+        <p>A cover sheet lists each source checked and the result, so the supervisor can sign off knowing the search was complete.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Efficiency improvement: same-day transcript counter</summary>
+      <div class="dbody">
+        <p><strong>Problem (sample scenario):</strong> walk-in transcript requests were queued with mailed requests, averaging 4 days.</p>
+        <p><strong>Recommendation:</strong> a pre-verified intake checklist at the counter, a dedicated print queue, and a daily 2–3 pm walk-in block.</p>
+        <p><strong>Measure:</strong> track walk-in turnaround in the tracker; target is same-day completion for complete records.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="reports">
+  <div class="wrap">
+    <h2>Monthly summary report</h2>
+    <p class="lede prose">A report I would prepare for a supervisor, built live from the tracker data above. Add or complete a request and the numbers update.</p>
+    <div class="two">
+      <div class="chartbox">
+        <h3 style="margin-top:0">Requests by type</h3>
+        <div id="chartType"></div>
+      </div>
+      <div class="chartbox">
+        <h3 style="margin-top:0">Summary for supervisor</h3>
+        <div id="summary"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="technical">
+  <div class="wrap">
+    <h2>Technical support and system documentation</h2>
+    <p class="lede prose">How I install, monitor and document the technology the records office depends on.</p>
+
+    <h3>System change log</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Date</th><th>System</th><th>Change</th><th>Reason</th><th>Tested</th><th>Approved by</th></tr></thead>
+      <tbody>
+        <tr><td>Sep 3</td><td>SharePoint records library</td><td>Added “Retention until” calculated column</td><td>Automate disposition review</td><td>Yes — 50 sample items</td><td>Records supervisor</td></tr>
+        <tr><td>Sep 19</td><td>Transcript workstation</td><td>Installed updated PDF certification software</td><td>Vendor end of support</td><td>Yes — 5 test transcripts</td><td>OIT</td></tr>
+        <tr><td>Oct 8</td><td>Request tracker</td><td>Added “Release on file” required field</td><td>Prevent release without consent</td><td>Yes</td><td>Records supervisor</td></tr>
+        <tr><td>Oct 13</td><td>Scanner RM-SCN-02</td><td>Driver rollback to prior version</td><td>Scans failing after update</td><td>Yes — 20 pages</td><td>OIT help desk</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="two" style="margin-top:22px">
+      <details open>
+        <summary>Hardware and software installation checklist</summary>
+        <div class="dbody"><ol>
+          <li>Confirm request and approval; check the device meets software requirements.</li>
+          <li>Coordinate with OIT for admin rights, licenses and network access.</li>
+          <li>Back up local settings and data; schedule the install outside counter hours.</li>
+          <li>Install, update, and connect to the SIS, printers and scanners.</li>
+          <li>Test with sample (non-production) records.</li>
+          <li>Record asset tag, version and date in the resource tracker and change log.</li>
+          <li>Show the user what changed; write a one-page quick guide if needed.</li>
+        </ol></div>
+      </details>
+      <details open>
+        <summary>Daily network and system monitoring</summary>
+        <div class="dbody"><ul>
+          <li>Confirm SIS, SharePoint and the repository are reachable at start of day.</li>
+          <li>Check shared printers and scanners are online with queues clear.</li>
+          <li>Verify overnight scan uploads finished and file counts match.</li>
+          <li>Review the help desk queue for open records-office tickets.</li>
+          <li>Log outages with time, impact and ticket number; notify staff and requesters if turnaround is affected.</li>
+        </ul></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="sharepoint">
+  <div class="wrap">
+    <h2>Running this system in SharePoint</h2>
+    <p class="lede prose">I rebuilt the tracker above as a working system in Microsoft 365, using SharePoint lists and Power Automate. These are tools the district already licenses, so it could run inside the existing environment with no new software, no added cost, and no student data leaving district systems.</p>
+
+    <p class="prose"><strong>Demo video:</strong> <a href="#" id="demoLink">[link coming soon]</a></p>
+
+    <figure>
+      <figcaption>How the pieces fit together</figcaption>
+      <p>Four SharePoint lists hold the data; four flows enforce the rules and keep everyone informed.</p>
+      <pre class="mermaid">
+flowchart LR
+  subgraph Lists[SharePoint lists]
+    R[Requests]
+    C[Communications Log]
+    E[Resources]
+    L[System Change Log]
+  end
+  F1[Flow 1: assign ID,<br/>due date, release check] --> R
+  F2[Flow 2: stamp<br/>completion date] --> R
+  R --> F3[Flow 3: daily<br/>overdue email]
+  R --> F4[Flow 4: subpoena<br/>legal approval]
+  F4 --> R
+  R --> D[Records Dashboard<br/>home page]
+  C --> D
+  E --> D
+      </pre>
+    </figure>
+
+    <h3>What moves where</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Portfolio piece</th><th>Microsoft 365 version</th><th>What it adds</th></tr></thead>
+      <tbody>
+        <tr><td>Requests tracker</td><td>SharePoint list with choice columns, saved views and a status board</td><td>Shared by the whole team, with version history on every item</td></tr>
+        <tr><td>Automatic due dates and IDs</td><td>Power Automate flow on each new request</td><td>Every request numbered and dated the same way</td></tr>
+        <tr><td>Release-form check</td><td>Same flow sets status to Pending release when no form is on file</td><td>Records can’t slip out without consent</td></tr>
+        <tr><td>Overdue flags</td><td>Red row formatting and an Overdue view filtered on today’s date</td><td>Late items visible without anyone checking by hand</td></tr>
+        <tr><td>Subpoena workflow</td><td>Approval flow routed to Legal before production</td><td>The policy is enforced, not just written down</td></tr>
+        <tr><td>Monthly report</td><td>Daily overdue email and a dashboard chart</td><td>Supervisor sees problems the morning they appear</td></tr>
+        <tr><td>Communications and resource logs</td><td>Two more SharePoint lists with follow-up views</td><td>Open follow-ups and loaned equipment on the dashboard</td></tr>
+        <tr><td>System change log</td><td>SharePoint list plus built-in version history</td><td>Every change documented with date, reason and approval</td></tr>
+        <tr><td>Indexing standard</td><td>Document library with metadata columns</td><td>Records found by student, school, type or year</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>How it would fit City Schools</h3>
+    <p class="prose">The system is designed to work alongside Scribbles, not replace it. Scribbles continues to handle online transcript ordering, while the SharePoint tracker covers what sits around it: subpoenas and their legal review, communications with schools and agencies, equipment, and one dashboard across all of it. In a real rollout I would start by learning the office’s current process and adapt the lists and flows to match, coordinate with the Office of Information Technology on permissions, and restrict subpoena records to records staff and Legal.</p>
+  </div>
+</section>
+
+<section id="service">
+  <div class="wrap">
+    <h2>Public service and communication</h2>
+    <p class="lede prose">Sample responses to the range of people a records office serves, and how I handle situations that need extra tact.</p>
+
+    <details open>
+      <summary>Response to a college: transcript sent</summary>
+      <div class="dbody"><div class="letter">Dear Admissions Office,
+
+The official transcript for [Student Name], requested on [date], was sent electronically today through our secure delivery service. Please contact our office at [phone] or [email] if you have trouble opening it or need an additional copy.
+
+Sincerely,
+[Your Name], Records Management</div></div>
+    </details>
+
+    <details>
+      <summary>Response to a law firm: subpoena acknowledgment</summary>
+      <div class="dbody"><div class="letter">Dear [Attorney Name],
+
+We received your subpoena for records of [Student Name] on [date]. It has been forwarded to the Office of Legal Counsel for review, as required by district policy and federal law. You will be contacted by that office regarding next steps. Records will not be released before that review is complete.
+
+Sincerely,
+[Your Name], Records Management</div></div>
+    </details>
+
+    <details>
+      <summary>Response to a former student: missing information</summary>
+      <div class="dbody"><div class="letter">Hello [Name],
+
+Thank you for your transcript request. To find your record, we need your date of birth and the name of the last school you attended. Once we have these, your request will be completed within five business days. You can reply to this email or call us at [phone].
+
+Thank you,
+[Your Name], Records Management</div></div>
+    </details>
+
+    <details>
+      <summary>Situations requiring unusual tact</summary>
+      <div class="dbody">
+        <p><strong>A parent without legal access asks for a child’s records.</strong> I explain calmly that I can’t release records without confirming custody rights, tell them exactly which document would allow access, and offer to check as soon as they bring it. I never confirm or deny details of the record in the meantime.</p>
+        <p><strong>A graduate needs a transcript today for a job offer, but a grade is missing.</strong> I call the school registrar while they wait, and if the grade can’t be confirmed I offer an enrollment verification letter immediately plus a priority transcript once the record is complete.</p>
+        <p><strong>A record cannot be found.</strong> I explain the search steps I’ve taken, the sources still to check, and when I will follow up, then log the commitment in the tracker so it happens.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="compliance">
+  <div class="wrap">
+    <h2>Compliance and professional development</h2>
+    <div class="two">
+      <div>
+        <h3 style="margin-top:0">Laws and policies I apply</h3>
+        <ul>
+          <li><strong>FERPA</strong> — consent, exceptions, disclosure logging and parent/eligible-student rights.</li>
+          <li><strong>State records retention schedules</strong> for student records.</li>
+          <li><strong>Equal employment and nondiscrimination</strong> (Title VI, Title IX, Section 504, ADA) — equal service to every requester, accessible formats on request, interpreters when needed.</li>
+          <li><strong>School board policies</strong> on records, technology use and data security.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Training log</h3>
+        <div class="scroll"><table>
+          <thead><tr><th>Training</th><th>Provider</th><th>Completed</th></tr></thead>
+          <tbody>
+            <tr><td>[FERPA for school staff]</td><td>[Provider]</td><td>[Date]</td></tr>
+            <tr><td>[SharePoint site management]</td><td>[Provider]</td><td>[Date]</td></tr>
+            <tr><td>[Student information system training]</td><td>[Provider]</td><td>[Date]</td></tr>
+            <tr><td>[Customer service / de-escalation]</td><td>[Provider]</td><td>[Date]</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared by [Your Name]. All data is fictional and for demonstration only.</p>
+  </div>
+</footer>
+
+<script>
+const DUTIES = [
+  ["Systemic support in managing records, student records and transcripts","tracker","Request tracking system"],
+  ["Designs and maintains moderately complex records tracking databases","tracker","Tracker and data model"],
+  ["Develops work-flow diagrams and electronic presentations","workflows","Workflow diagrams"],
+  ["Recommends records management procedures and processes","procedures","Recommended procedures"],
+  ["Tracking systems for resources and communications with offices, schools, parents, agencies","tracker","Communications and resource logs"],
+  ["Organizes and maintains records documents","procedures","Indexing standard"],
+  ["Ensures systems and system changes are documented","technical","System change log"],
+  ["Organizes and assists with hardware and software installation","technical","Installation checklist"],
+  ["Network monitoring, operations, installation and maintenance","technical","Daily monitoring routine"],
+  ["Customer support processes; responds to records and transcript inquiries","service","Response templates"],
+  ["Technical knowledge of student information programs and data retrieval","procedures","Compiling complete records"],
+  ["Tact and good judgment with the public and staff","service","Situations requiring tact"],
+  ["Participates in training programs","compliance","Training log"],
+  ["Indexing with Scribbles, SharePoint and the Central Records Repository","procedures","Indexing standard"],
+  ["Compiles reports and secures complete subpoena and transcript information","reports","Monthly report and subpoena workflow"],
+  ["Organizes office tasks and ensures completion","tracker","Status and due-date tracking"],
+  ["Recommends and implements procedures to improve efficiency","procedures","Same-day counter proposal"],
+  ["Assists colleges, employers, law firms, health departments, students, guardians","service","Response templates"],
+  ["Handles forms and services needing unusual tact or approaches","service","Situations requiring tact"],
+  ["Complies with EEO, nondiscrimination, federal and state law, board policy","compliance","Laws and policies"]
+];
+document.getElementById("dutyMap").innerHTML = DUTIES.map((d,i)=>
+  `<tr><td>${i+1}</td><td>${d[0]}</td><td><a href="#${d[1]}">${d[2]}</a></td></tr>`).join("");
+
+/* ---------- tracker ---------- */
+const TODAY = new Date(2026,9,17);
+const PREFIX = {"Transcript":"TR","Subpoena":"SB","Enrollment verification":"VR","Records transfer":"RT","Diploma replacement":"DP"};
+const DAYS = {"Transcript":5,"Subpoena":10,"Enrollment verification":3,"Records transfer":10,"Diploma replacement":10};
+const STATUSES = ["Received","In progress","Pending release","Completed"];
+const KEY = "rm-portfolio-requests-v1";
+
+function d(y,m,dd){return new Date(y,m-1,dd).toISOString().slice(0,10)}
+function addBusiness(iso,n){const t=new Date(iso+"T12:00:00");let k=0;while(k<n){t.setDate(t.getDate()+1);const w=t.getDay();if(w&&w!==6)k++}return t.toISOString().slice(0,10)}
+const SEED = [
+  ["TR-0138",d(2026,9,22),"Transcript","State University Admissions","College/university","Rivera, Ana","Yes","Completed"],
+  ["RT-0137",d(2026,9,24),"Records transfer","Eastside Charter Academy","School/central office","Nguyen, Bao","Not required","Completed"],
+  ["VR-0139",d(2026,9,29),"Enrollment verification","Metro Workforce Agency","Employer/agency","Brooks, Jalen","Yes","Completed"],
+  ["TR-0140",d(2026,10,1),"Transcript","Former student (self)","Former student","Patel, Riya","Yes","Completed"],
+  ["TR-0141",d(2026,10,2),"Transcript","Coastal Community College","College/university","Okafor, Daniel","Yes","Completed"],
+  ["DP-0142",d(2026,10,5),"Diploma replacement","Former student (self)","Former student","Kim, Grace","Yes","In progress"],
+  ["TR-0143",d(2026,10,6),"Transcript","Northern Tech Institute","College/university","Thompson, Marcus","No","Pending release"],
+  ["SB-0144",d(2026,10,7),"Subpoena","Hale & Ortiz LLP","Law firm","Doe, Jordan","Not required","In progress"],
+  ["TR-0145",d(2026,10,8),"Transcript","Harbor Logistics HR","Employer/agency","Santos, Luis","Yes","In progress"],
+  ["VR-0146",d(2026,10,9),"Enrollment verification","County Health Department","Health department","Williams, Aaliyah","Not required","Completed"],
+  ["RT-0147",d(2026,10,13),"Records transfer","Parent of M. Chen","Parent/guardian","Chen, Mei","Yes","Received"],
+  ["TR-0148",d(2026,10,15),"Transcript","State University Admissions","College/university","Johnson, Tyler","Yes","Received"]
+].map(r=>({id:r[0],received:r[1],type:r[2],requester:r[3],cat:r[4],student:r[5],release:r[6],status:r[7],due:addBusiness(r[1],DAYS[r[2]]),done:r[7]==="Completed"?addBusiness(r[1],Math.max(1,DAYS[r[2]]-2)):null}));
+
+let rows;
+try{const s=localStorage.getItem(KEY);rows=s?JSON.parse(s):null}catch(e){rows=null}
+if(!Array.isArray(rows)||!rows.length) rows=JSON.parse(JSON.stringify(SEED));
+function save(){try{localStorage.setItem(KEY,JSON.stringify(rows))}catch(e){}}
+
+const fmt = iso => new Date(iso+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const todayIso = TODAY.toISOString().slice(0,10);
+const isLate = r => r.status!=="Completed" && r.due < todayIso;
+
+function render(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const fs=document.getElementById("fStatus").value, ft=document.getElementById("fType").value;
+  const list=rows.filter(r=>(!fs||r.status===fs)&&(!ft||r.type===ft)&&(!q||(r.id+" "+r.requester+" "+r.student).toLowerCase().includes(q)))
+                 .sort((a,b)=>b.received.localeCompare(a.received));
+  const body=document.getElementById("reqBody");
+  body.innerHTML = list.length ? list.map(r=>`<tr>
+    <td><strong>${esc(r.id)}</strong></td><td>${fmt(r.received)}</td><td>${esc(r.type)}</td>
+    <td>${esc(r.requester)}<br><span class="small">${esc(r.cat)}</span></td><td>${esc(r.student)}</td>
+    <td>${esc(r.release)}</td><td class="${isLate(r)?"late":""}">${fmt(r.due)}${isLate(r)?"<br>Overdue":""}</td>
+    <td><select data-id="${esc(r.id)}" aria-label="Status for ${esc(r.id)}">${STATUSES.map(s=>`<option${s===r.status?" selected":""}>${s}</option>`).join("")}</select></td>
+  </tr>`).join("") : `<tr><td colspan="8" class="empty">No requests match. Clear the search or filters to see all requests.</td></tr>`;
+
+  const open=rows.filter(r=>r.status!=="Completed").length;
+  const late=rows.filter(isLate).length;
+  const pend=rows.filter(r=>r.status==="Pending release").length;
+  document.getElementById("reqStats").innerHTML=
+    `<div class="stat"><b>${rows.length}</b><span>Total requests</span></div>
+     <div class="stat"><b>${open}</b><span>Open</span></div>
+     <div class="stat"><b style="color:var(--late)">${late}</b><span>Overdue</span></div>
+     <div class="stat"><b>${pend}</b><span>Awaiting release form</span></div>`;
+  renderReport();
+}
+
+function renderReport(){
+  const types=Object.keys(PREFIX);
+  const counts=types.map(t=>rows.filter(r=>r.type===t).length);
+  const max=Math.max(1,...counts), W=420, rowH=34, labelW=170;
+  const bars=types.map((t,i)=>{const w=(W-labelW-40)*counts[i]/max;const y=i*rowH;
+    return `<text x="0" y="${y+21}" fill="var(--ink)" font-size="13">${t}</text>
+    <rect x="${labelW}" y="${y+6}" width="${Math.max(w,2)}" height="20" rx="3" fill="var(--file)"></rect>
+    <text x="${labelW+w+6}" y="${y+21}" fill="var(--ink)" font-size="13" font-weight="700">${counts[i]}</text>`}).join("");
+  document.getElementById("chartType").innerHTML=
+    `<svg viewBox="0 0 ${W} ${types.length*rowH}" role="img" aria-label="Bar chart of requests by type" style="width:100%;height:auto;font-family:inherit">${bars}</svg>`;
+
+  const done=rows.filter(r=>r.status==="Completed"&&r.done);
+  const onTime=done.filter(r=>r.done<=r.due).length;
+  const avg=done.length?(done.reduce((s,r)=>s+(new Date(r.done)-new Date(r.received))/864e5,0)/done.length).toFixed(1):"—";
+  const late=rows.filter(isLate);
+  const pend=rows.filter(r=>r.status==="Pending release");
+  const topCat=Object.entries(rows.reduce((m,r)=>(m[r.cat]=(m[r.cat]||0)+1,m),{})).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById("summary").innerHTML=`
+    <p><strong>${rows.length}</strong> requests received, <strong>${done.length}</strong> completed.</p>
+    <p>Completed on time: <strong>${done.length?Math.round(onTime/done.length*100):0}%</strong>. Average turnaround: <strong>${avg}</strong> calendar days.</p>
+    <p>Largest requester group: <strong>${topCat?esc(topCat[0]):"—"}</strong>${topCat?` (${topCat[1]})`:""}.</p>
+    <p>${late.length?`<span class="late">Needs attention:</span> ${late.map(r=>esc(r.id)).join(", ")} past due.`:"No overdue requests."}
+    ${pend.length?` Awaiting signed release: ${pend.map(r=>esc(r.id)).join(", ")}.`:""}</p>
+    <p class="small">Recommendation: send a release-form reminder on day 2 for any request marked “No” to keep pending items from becoming overdue.</p>`;
+}
+
+document.getElementById("reqBody").addEventListener("change",e=>{
+  const id=e.target.dataset.id; if(!id) return;
+  const r=rows.find(x=>x.id===id); r.status=e.target.value;
+  r.done = r.status==="Completed" ? todayIso : null;
+  save(); render();
+});
+document.getElementById("reqForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const type=f.get("type");
+  const nums=rows.map(r=>parseInt(r.id.split("-")[1],10)).filter(n=>!isNaN(n));
+  const id=PREFIX[type]+"-"+String(Math.max(0,...nums)+1).padStart(4,"0");
+  const release=f.get("release");
+  rows.push({id,received:todayIso,type,requester:f.get("requester").trim(),cat:f.get("cat"),student:f.get("student").trim(),
+    release,status:release==="No"?"Pending release":"Received",due:addBusiness(todayIso,DAYS[type]),done:null});
+  save(); e.target.reset(); render();
+});
+["q","fStatus","fType"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+document.getElementById("resetData").addEventListener("click",()=>{
+  rows=JSON.parse(JSON.stringify(SEED));
+  try{localStorage.removeItem(KEY)}catch(e){}
+  render();
+});
+
+/* tracker tabs */
+const tabs=[...document.querySelectorAll(".ttabs button")];
+tabs.forEach(b=>b.addEventListener("click",()=>{
+  tabs.forEach(x=>{x.setAttribute("aria-selected",x===b);document.getElementById(x.dataset.pane).hidden=x!==b});
+}));
+
+/* highlight nav tab for current section */
+const navLinks=[...document.querySelectorAll("nav.tabs a")];
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){navLinks.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}}),{rootMargin:"-40% 0px -55% 0px"});
+document.querySelectorAll("main section").forEach(s=>io.observe(s));
+
+render();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+try{mermaid.initialize({startOnLoad:true,theme:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'default'});}catch(e){}
+</script>
+</body>
+</html>
