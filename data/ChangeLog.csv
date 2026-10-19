@@ -1,5 +1,0 @@
-ChangeDate,System,Change,Reason,Tested,ApprovedBy
-2026-10-13,Scanner RM-SCN-02,Driver rollback to prior version,Scans failing after update,Yes,OIT help desk
-2026-10-08,Request tracker,Added Release on file required field,Prevent release without consent,Yes,Records supervisor
-2026-09-19,Transcript workstation,Installed updated PDF certification software,Vendor end of support,Yes,OIT
-2026-09-03,SharePoint records library,Added Retention until column,Automate disposition review,Yes,Records supervisor
