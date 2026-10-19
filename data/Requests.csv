@@ -1,0 +1,13 @@
+RequestID,RequestType,Received,Requester,RequesterCategory,Student,ReleaseOnFile,Status,DueDate,CompletedDate,LegalApproval,Notes
+TR-0138,Transcript,2026-09-22 12:00,State University Admissions,College/university,"Rivera, Ana",Yes,Completed,2026-09-29 12:00,2026-09-25 12:00,Not needed,Fictional sample data
+RT-0137,Records transfer,2026-09-24 12:00,Eastside Charter Academy,School/central office,"Nguyen, Bao",Not required,Completed,2026-10-08 12:00,2026-10-03 12:00,Not needed,Fictional sample data
+VR-0139,Enrollment verification,2026-09-29 12:00,Metro Workforce Agency,Employer/agency,"Brooks, Jalen",Yes,Completed,2026-10-04 12:00,2026-10-01 12:00,Not needed,Fictional sample data
+TR-0140,Transcript,2026-10-01 12:00,Former student (self),Former student,"Patel, Riya",Yes,Completed,2026-10-08 12:00,2026-10-05 12:00,Not needed,Fictional sample data
+TR-0141,Transcript,2026-10-02 12:00,Coastal Community College,College/university,"Okafor, Daniel",Yes,Completed,2026-10-09 12:00,2026-10-06 12:00,Not needed,Fictional sample data
+DP-0142,Diploma replacement,2026-10-05 12:00,Former student (self),Former student,"Kim, Grace",Yes,In progress,2026-10-19 12:00,,Not needed,Fictional sample data
+TR-0143,Transcript,2026-10-06 12:00,Northern Tech Institute,College/university,"Thompson, Marcus",No,Pending release,2026-10-13 12:00,,Not needed,Fictional sample data
+SB-0144,Subpoena,2026-10-07 12:00,Hale & Ortiz LLP,Law firm,"Doe, Jordan",Not required,In progress,2026-10-21 12:00,,Approved,Fictional sample data
+TR-0145,Transcript,2026-10-08 12:00,Harbor Logistics HR,Employer/agency,"Santos, Luis",Yes,In progress,2026-10-15 12:00,,Not needed,Fictional sample data
+VR-0146,Enrollment verification,2026-10-09 12:00,County Health Department,Health department,"Williams, Aaliyah",Not required,Completed,2026-10-14 12:00,2026-10-10 12:00,Not needed,Fictional sample data
+RT-0147,Records transfer,2026-10-13 12:00,Parent of M. Chen,Parent/guardian,"Chen, Mei",Yes,Received,2026-10-27 12:00,,Not needed,Fictional sample data
+TR-0148,Transcript,2026-10-15 12:00,State University Admissions,College/university,"Johnson, Tyler",Yes,Received,2026-10-22 12:00,,Not needed,Fictional sample data
