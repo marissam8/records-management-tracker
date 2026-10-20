@@ -82,7 +82,7 @@ These are standard Microsoft 365 business tools, so the system can run inside an
 
 | 1. Site created | 2. Importing the data |
 | --- | --- |
-| ![Site](/records-management-trackerscreenshots/01-site-created.png) | ![CSV import](records-management-trackerscreenshots/02-csv-import.png) |
+| ![Site](/records-management-tracker/screenshots/01-site-created.png) | ![CSV import](records-management-tracker/screenshots/02-csv-import.png) |
 | **3. Requests list** | **4. Status choices** |
 | ![Requests](screenshots/03-requests-list.png) | ![Choices](screenshots/04-choice-colors.png) |
 | **5. Completed in green, overdue in red** | **6. Request setup flow** |
