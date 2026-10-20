@@ -85,17 +85,16 @@ These are standard Microsoft 365 business tools, so the system can run inside an
 | ![Site](screenshots/01-site-created.png) | ![CSV import](screenshots/02-csv-import.png) |
 | **3. Requests list** | **4. Status choices** |
 | ![Requests](screenshots/03-requests-list.png) | ![Choices](screenshots/04-choice-colors.png) |
-| **5. Completed in green, overdue in red** | **7. Request setup flow** |
+| **5. Completed in green, overdue in red** | **6. Request setup flow** |
 | ![Overdue](screenshots/05-requests-overdue.png) | ![Flow](screenshots/07-flow-designer.png) |
-| **8. Successful run** | **9. ID and due date filled in automatically** |
+| **7. Successful run** | **8. ID and due date filled in automatically** |
 | ![Run](screenshots/08-flow-success.png) | ![Auto-filled](screenshots/09-new-request-auto.png) |
-| **10. Subpoena sent to Legal for approval** | **11. Daily overdue report logged** |
+| **9. Subpoena sent to Legal for approval** | **10. Daily overdue report logged** |
 | ![Approval](screenshots/10-approval-email.png) | ![Overdue log](screenshots/11-overdue-log.png) |
-| **12. Dashboard Log** |  **13. Dashboard Log Cont** |
-| ![Records Dashboard](screenshots/12-dashboard.png) | ![Records Dashboard](screenshots/12-dashboard01.png) |
-| **14. Dashboard Log Cont** | **15. System change log** |
-| ![Records Dashboard](screenshots/12-dashboard02.png) | ![Systems](screenshots/13-change-log.png) | 
-
+| **11. Dashboard: overdue requests** | **12. Dashboard: communications follow-ups** |
+| ![Records Dashboard](screenshots/12-dashboard.png) | ![Dashboard: communications](screenshots/12-dashboard01.png) |
+| **13. Dashboard: equipment due back** | **14. System change log** |
+| ![Dashboard: equipment](screenshots/12-dashboard02.png) | ![Change log](screenshots/13-change-log.png) |
 
 ## Design decisions
 
