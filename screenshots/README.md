@@ -85,14 +85,17 @@ These are standard Microsoft 365 business tools, so the system can run inside an
 | ![Site](screenshots/01-site-created.png) | ![CSV import](screenshots/02-csv-import.png) |
 | **3. Requests list** | **4. Status choices** |
 | ![Requests](screenshots/03-requests-list.png) | ![Choices](screenshots/04-choice-colors.png) |
-| **5. Completed in green, overdue in red** | **6. Status board** |
-| ![Overdue](screenshots/05-requests-overdue.png) | ![Board](screenshots/06-status-board.png) |
-| **7. Request setup flow** | **8. Successful run** |
-| ![Flow](screenshots/07-flow-designer.png) | ![Run](screenshots/08-flow-success.png) |
-| **9. ID and due date filled in automatically** | **10. Subpoena sent to Legal for approval** |
-| ![Auto-filled](screenshots/09-new-request-auto.png) | ![Approval](screenshots/10-approval-email.png) |
-| **11. Daily overdue report logged** | **12. System change log** |
-| ![Overdue log](screenshots/11-overdue-log.png) | ![Change log](screenshots/13-change-log.png) |
+| **5. Completed in green, overdue in red** | **7. Request setup flow** |
+| ![Overdue](screenshots/05-requests-overdue.png) | ![Flow](screenshots/07-flow-designer.png) |
+| **8. Successful run** | **9. ID and due date filled in automatically** |
+| ![Run](screenshots/08-flow-success.png) | ![Auto-filled](screenshots/09-new-request-auto.png) |
+| **10. Subpoena sent to Legal for approval** | **11. Daily overdue report logged** |
+| ![Approval](screenshots/10-approval-email.png) | ![Overdue log](screenshots/11-overdue-log.png) |
+| **12. Dashboard Log** |  **13. Dashboard Log Cont** |
+| ![Dashoard](screenshots/12-dashbboard.png) | ![Dashoard](screenshots/12-dashbboard01.png) |
+| **14. Dashboard Log Cont** | **15. System change log** |
+| ![Dashoard](screenshots/12-dashbboard02.png) | ![Systems](screenshots/13-change-log.png) | 
+
 
 ## Design decisions
 
