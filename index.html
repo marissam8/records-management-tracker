@@ -520,7 +520,7 @@ flowchart TD
 
     <figure>
       <figcaption>How the pieces fit together</figcaption>
-      <p>Four SharePoint lists hold the data; four flows enforce the rules and keep everyone informed.</p>
+      <p>Four SharePoint lists hold the data. Three Power Automate flows enforce the rules and write every decision and daily check to the Communications Log, so the system documents itself.</p>
       <pre class="mermaid">
 flowchart LR
   subgraph Lists[SharePoint lists]
@@ -529,11 +529,12 @@ flowchart LR
     E[Resources]
     L[System Change Log]
   end
-  F1[Flow 1: assign ID,<br/>due date, release check] --> R
-  F2[Flow 2: stamp<br/>completion date] --> R
-  R --> F3[Flow 3: daily<br/>overdue email]
-  R --> F4[Flow 4: subpoena<br/>legal approval]
+  F1[New request setup:<br/>ID, due date, release check] --> R
+  R --> F4[Subpoena legal approval:<br/>routed to Legal]
   F4 --> R
+  F4 --> C
+  R --> F3[Daily overdue report:<br/>runs every morning]
+  F3 --> C
   R --> D[Records Dashboard<br/>home page]
   C --> D
   E --> D
@@ -547,12 +548,12 @@ flowchart LR
         <tr><td>Requests tracker</td><td>SharePoint list with choice columns, saved views and a status board</td><td>Shared by the whole team, with version history on every item</td></tr>
         <tr><td>Automatic due dates and IDs</td><td>Power Automate flow on each new request</td><td>Every request numbered and dated the same way</td></tr>
         <tr><td>Release-form check</td><td>Same flow sets status to Pending release when no form is on file</td><td>Records can’t slip out without consent</td></tr>
-        <tr><td>Overdue flags</td><td>Red row formatting and an Overdue view filtered on today’s date</td><td>Late items visible without anyone checking by hand</td></tr>
-        <tr><td>Subpoena workflow</td><td>Approval flow routed to Legal before production</td><td>The policy is enforced, not just written down</td></tr>
-        <tr><td>Monthly report</td><td>Daily overdue email and a dashboard chart</td><td>Supervisor sees problems the morning they appear</td></tr>
+        <tr><td>Overdue flags</td><td>Color rules (completed requests green, overdue request IDs red) and an Overdue view filtered on today’s date</td><td>Late items visible without anyone checking by hand</td></tr>
+        <tr><td>Subpoena workflow</td><td>Every subpoena is sent to Legal through Microsoft Approvals; the decision is written back to the request and logged in the Communications Log</td><td>The policy is enforced, not just written down, with a record of every legal decision</td></tr>
+        <tr><td>Monthly report</td><td>A scheduled flow logs a daily overdue report listing every late request ID, plus a dashboard chart</td><td>Supervisor sees problems the morning they appear, with a dated history</td></tr>
         <tr><td>Communications and resource logs</td><td>Two more SharePoint lists with follow-up views</td><td>Open follow-ups and loaned equipment on the dashboard</td></tr>
         <tr><td>System change log</td><td>SharePoint list plus built-in version history</td><td>Every change documented with date, reason and approval</td></tr>
-        <tr><td>Indexing standard</td><td>Document library with metadata columns</td><td>Records found by student, school, type or year</td></tr>
+        <tr><td>Indexing standard</td><td>Document library with metadata columns (next phase)</td><td>Records found by student, school, type or year</td></tr>
       </tbody>
     </table></div>
 

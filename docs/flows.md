@@ -1,73 +1,62 @@
 # Power Automate flows
 
-All four flows use standard connectors (SharePoint, Office 365 Outlook, Approvals) included with Microsoft 365 business plans.
-
-In each **Update item** action, the list's required fields (Request type, Requester, Student) are passed back from the trigger unchanged. Other fields are left blank unless listed, and blank fields are not modified. Flows 1 and 4 never write the same field, so they can run at the same time safely.
+All three flows use standard connectors (SharePoint and Approvals) included with Microsoft 365 business plans. They reference SharePoint columns by **internal name** (see [schema.md](schema.md)), because a list created from a CSV gets generic names like `field_1`.
 
 ## Flow 1: New request setup
 
 **Trigger:** When an item is created (Requests)
-**Action:** Update item
+
+1. **Initialize variables:** `Prefix` (string, empty), `DaysToDue` (integer, 14), `NewStatus` (string, the request's Status).
+2. **Switch** on request type, `triggerBody()?['field_1']?['Value']`:
+
+| Case | Prefix | DaysToDue |
+| --- | --- | --- |
+| Transcript | TR | 7 |
+| Subpoena | SB | 14 |
+| Enrollment verification | VR | 5 |
+| Records transfer | RT | 14 |
+| Default (Diploma replacement) | DP | 14 |
+
+3. **Condition:** release on file, `triggerBody()?['field_6']?['Value']`, equals `No` → set `NewStatus` to `Pending release`.
+4. **Update item** (Requests):
 
 | Field | Expression |
 | --- | --- |
-| Request ID | see below |
-| Due date | see below |
-| Status | see below |
+| Title (Request ID) | `concat(variables('Prefix'),'-',formatNumber(add(triggerBody()?['ID'],140),'0000'))` |
+| DueDate | `formatDateTime(addDays(utcNow(),variables('DaysToDue')),'yyyy-MM-ddT12:00:00Z')` |
+| Status | `variables('NewStatus')` |
 
-Request ID (type prefix plus a running number):
+Dates are written at noon UTC so time zone conversion can never shift them to the previous day.
 
-```
-concat(if(equals(triggerOutputs()?['body/RequestType/Value'],'Transcript'),'TR',if(equals(triggerOutputs()?['body/RequestType/Value'],'Subpoena'),'SB',if(equals(triggerOutputs()?['body/RequestType/Value'],'Enrollment verification'),'VR',if(equals(triggerOutputs()?['body/RequestType/Value'],'Records transfer'),'RT','DP')))),'-',formatNumber(add(triggerOutputs()?['body/ID'],140),'0000'))
-```
+## Flow 2: Subpoena legal approval
 
-Due date (7 calendar days for transcripts, 5 for verifications, 14 otherwise):
+**Trigger:** When an item is created (Requests)
 
-```
-formatDateTime(addDays(coalesce(triggerOutputs()?['body/Received'],utcNow()),if(equals(triggerOutputs()?['body/RequestType/Value'],'Transcript'),7,if(equals(triggerOutputs()?['body/RequestType/Value'],'Enrollment verification'),5,14))),'yyyy-MM-dd')
-```
+1. **Condition:** `triggerBody()?['field_1']?['Value']` equals `Subpoena`. Other request types end here.
+2. **Update item:** LegalApproval = `Pending`. Status is left untouched so this flow never conflicts with Flow 1.
+3. **Start and wait for an approval** (Approve/Reject, first to respond), assigned to Legal, with the student and a link to the request.
+4. **Condition:** `outputs('Start_and_wait_for_an_approval')?['body/outcome']` equals `Approve`.
+   - **Approved:** Update item, LegalApproval = `Approved`. Create item in the Communications Log: party *Office of Legal Counsel*, channel *Automated workflow*, subject *Subpoena approved: notify parent before producing records*, linked to the request ID, follow-up in 3 days, status *Open*.
+   - **Rejected:** Update item, LegalApproval = `Rejected`. Create item in the Communications Log: subject *Subpoena rejected: do not produce records*, status *Closed*.
 
-Status (hold for a signed release):
-
-```
-if(equals(triggerOutputs()?['body/ReleaseOnFile/Value'],'No'),'Pending release',triggerOutputs()?['body/Status/Value'])
-```
-
-## Flow 2: Completion date stamp
-
-**Trigger:** When an item is created or modified (Requests)
-**Condition:** Status = `Completed` AND `empty(triggerOutputs()?['body/CompletedDate'])` = `true`
-**If true:** Update item, Date completed = `formatDateTime(utcNow(),'yyyy-MM-dd')`
-
-The empty-date check prevents the flow from re-triggering itself in a loop.
+In the demo, the builder approves as a stand-in for the Office of Legal Counsel, using the Approvals center in Power Automate.
 
 ## Flow 3: Daily overdue report
 
-**Trigger:** Recurrence, weekdays at 8:00 AM
-**Get items** (Requests), Filter Query:
+**Trigger:** Recurrence, daily at 8:00 AM
+
+1. **Get items** (Requests), with Filter Query entered as a single expression:
 
 ```
-Status ne 'Completed' and DueDate lt '@{formatDateTime(utcNow(),'yyyy-MM-dd')}'
+concat('field_7 ne ''Completed'' and field_8 lt ''', formatDateTime(utcNow(),'yyyy-MM-dd'), '''')
 ```
 
-**Condition:** `length(body('Get_items')?['value'])` > 0
-**If true:** Create HTML table (custom columns), then Send an email (V2) with the table as the body.
+2. **Condition:** `length(body('Get_items')?['value'])` greater than `0`.
+3. **Select:** maps each overdue item to its request ID, `item()?['Title']`.
+4. **Create item** in the Communications Log: party *Records Management team*, channel *Automated workflow*, follow-up status *Open*, and subject:
 
-| Header | Value |
-| --- | --- |
-| Request ID | `item()?['RequestID']` |
-| Type | `item()?['RequestType/Value']` |
-| Requester | `item()?['Requester']` |
-| Due | `item()?['DueDate']` |
+```
+concat('Daily overdue report: ', length(body('Get_items')?['value']), ' overdue (', join(body('Select'), ', '), ')')
+```
 
-## Flow 4: Subpoena legal approval
-
-**Trigger:** When an item is created (Requests)
-**Condition:** Request type = `Subpoena`
-
-1. Update item: Legal approval = `Pending`
-2. Start and wait for an approval (Approve/Reject, first to respond), assigned to Legal
-3. If approved: Legal approval = `Approved`, and email a reminder to notify the parent or eligible student before producing records
-4. If rejected: Legal approval = `Rejected`
-
-In the demo, the builder approves as a stand-in for the Office of Legal Counsel.
+Example result: *Daily overdue report: 3 overdue (DP-0142, TR-0143, TR-0145)*.

@@ -1,25 +1,27 @@
 # Data model: lists, columns and views
 
-Column internal names have no spaces. SharePoint fixes the internal name when a column is created, and the flows and formatting reference these names directly.
+When SharePoint creates a list from a CSV, it assigns generic internal names (`field_1`, `field_2`, ...) and turns one column into `Title`. Flows and formatting reference internal names, so this page lists both. To check any column's internal name, open List settings, click the column, and read the end of the web address after `Field=`.
 
 ## Requests
 
-| Internal name | Display name | Type | Settings |
+| Column | Internal name | Type | Settings |
 | --- | --- | --- | --- |
-| Title | Request ID | Single line of text | Filled by Flow 1 |
-| RequestType | Request type | Choice | Transcript, Subpoena, Enrollment verification, Records transfer, Diploma replacement |
-| Received | Date received | Date | Default: Today |
-| Requester | Requester | Single line of text | Required |
-| RequesterCategory | Requester category | Choice | College/university, Law firm, Employer/agency, Parent/guardian, Former student, Health department, School/central office |
-| Student | Student (fictional) | Single line of text | Required |
-| ReleaseOnFile | Release on file | Choice | Yes, No, Not required |
-| Status | Status | Choice | Received, In progress, Pending release, Completed |
-| DueDate | Due date | Date | Filled by Flow 1 |
-| CompletedDate | Date completed | Date | Filled by Flow 2 |
-| LegalApproval | Legal approval | Choice | Not needed, Pending, Approved, Rejected |
-| Notes | Notes | Multiple lines of text | |
+| Request ID | Title | Single line of text | Filled by the request setup flow |
+| Request type | field_1 | Choice (drop-down) | Transcript, Subpoena, Enrollment verification, Records transfer, Diploma replacement |
+| Date received | field_2 | Date | Default: today |
+| Requester | field_3 | Single line of text | Required |
+| Requester category | field_4 | Choice (drop-down) | College/university, Law firm, Employer/agency, Parent/guardian, Former student, Health department, School/central office |
+| Student (fictional) | field_5 | Single line of text | |
+| Release on file | field_6 | Choice (drop-down) | Yes, No, Not required |
+| Status | field_7 | Choice (drop-down) | Received, In progress, Pending release, Completed |
+| Due date | field_8 | Date | Filled by the request setup flow |
+| Date completed | field_9 | Date | Reserved for turnaround reporting |
+| Legal approval | field_10 | Choice (drop-down) | Not needed, Pending, Approved, Rejected |
+| Notes | field_11 | Multiple lines of text | |
 
-### Views
+All choice columns must be **drop-down (single selection)**. The CSV import created them as checkboxes (multiple selection), which stores values as lists and breaks comparisons in flows and formatting.
+
+### Views and formatting
 
 | View | Filter | Sort |
 | --- | --- | --- |
@@ -29,53 +31,18 @@ Column internal names have no spaces. SharePoint fixes the internal name when a 
 | Subpoenas | Request type = Subpoena | Due date |
 | Status board | Board view grouped by Status | |
 
-### Overdue row formatting
-
-```json
-{
-  "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/row-formatting.schema.json",
-  "additionalRowClass": "=if([$DueDate] < @now && [$Status] != 'Completed', 'sp-field-severity--severeWarning', '')"
-}
-```
+Conditional formatting: completed rows show green, and the Request ID turns red when the due date has passed and the request isn't completed.
 
 ## Communications Log
 
-| Internal name | Type | Choices |
-| --- | --- | --- |
-| CommDate | Date | |
-| Party | Text | |
-| Category | Choice | Central office, School, Parent/guardian, Student, External agency, Law firm |
-| Channel | Choice | Email, Phone, In person, Mail, Secure email, Help desk ticket |
-| Subject | Text | |
-| LinkedRequest | Text | Request ID |
-| FollowUpDate | Date | |
-| FollowUpStatus | Choice | Open, Closed |
+Title holds the **party**. Other columns: CommDate (date), Category (choice: Central office, School, Parent/guardian, Student, External agency, Law firm), Channel (choice: Email, Phone, In person, Mail, Secure email, Help desk ticket, Automated workflow), Subject, LinkedRequest, FollowUpDate (date), FollowUpStatus (choice: Open, Closed).
 
-View: **Open follow-ups** (FollowUpStatus = Open).
+View: **Open follow-ups** (FollowUpStatus = Open). The approval and daily report flows write entries here with channel *Automated workflow*.
 
 ## Resources
 
-| Internal name | Type | Choices |
-| --- | --- | --- |
-| Asset | Text | |
-| Tag | Text | |
-| AssignedTo | Text | |
-| Location | Text | |
-| Deployed | Date | |
-| DueBack | Date | |
-| Status | Choice | In service, On loan, In repair, Retired |
-
-View: **Due back soon** (DueBack < `[Today]+7`).
+Asset (Title), Tag, AssignedTo, Location, Deployed (date), DueBack (date), Status (choice: In service, On loan, In repair, Retired). View: **Due back soon** (DueBack < `[Today]+7`).
 
 ## System Change Log
 
-| Internal name | Type |
-| --- | --- |
-| ChangeDate | Date |
-| System | Text |
-| Change | Text |
-| Reason | Text |
-| Tested | Choice: Yes, No |
-| ApprovedBy | Text |
-
-Version history is enabled on all lists.
+ChangeDate, System, Change, Reason, Tested, ApprovedBy. Sorted by date, newest first. Version history is enabled on all lists.
