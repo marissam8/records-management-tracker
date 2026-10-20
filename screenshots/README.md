@@ -92,9 +92,9 @@ These are standard Microsoft 365 business tools, so the system can run inside an
 | **10. Subpoena sent to Legal for approval** | **11. Daily overdue report logged** |
 | ![Approval](screenshots/10-approval-email.png) | ![Overdue log](screenshots/11-overdue-log.png) |
 | **12. Dashboard Log** |  **13. Dashboard Log Cont** |
-| ![Dashoard](screenshots/12-dashbboard.png) | ![Dashoard](screenshots/12-dashbboard01.png) |
+| ![Records Dashboard](screenshots/12-dashboard.png) | ![Records Dashboard](screenshots/12-dashboard01.png) |
 | **14. Dashboard Log Cont** | **15. System change log** |
-| ![Dashoard](screenshots/12-dashbboard02.png) | ![Systems](screenshots/13-change-log.png) | 
+| ![Records Dashboard](screenshots/12-dashboard02.png) | ![Systems](screenshots/13-change-log.png) | 
 
 
 ## Design decisions
