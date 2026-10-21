@@ -4,7 +4,6 @@ A working records management system built in **SharePoint** and **Power Automate
 
 > **All data in this project is fictional.** No real student information is used, in keeping with FERPA.
 
-**Demo video:** [Watch the walkthrough on Loom](LOOM_LINK_HERE)
 **Portfolio site:** [View the live portfolio](https://github.com/marissam8/records-management-tracker)
 
 ## What it does
