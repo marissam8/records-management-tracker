@@ -106,4 +106,4 @@ These are standard Microsoft 365 business tools, so the system can run inside an
 
 I combine law enforcement records experience, as a sheriff's deputy in detention center booking and on patrol, with cloud systems administration, data platform engineering and PKI training. I built this project to show how records offices can be both careful and technically sound.
 
-Marissa M · [LinkedIn] · [email]
+Marissa M ·
